@@ -16,7 +16,6 @@ class Philosophers
         Philosophers* p_Root;
         P* next;
         P* prev;
-
         std::binary_semaphore fork_lock;
 
         P():

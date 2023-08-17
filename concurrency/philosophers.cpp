@@ -144,9 +144,8 @@ void Philosophers::P::think()
 
 void Philosophers::P::take()
 {
-    prev->fork_lock.release();
-    next->fork_lock.release();
-    fork_lock.acquire();
+    prev->fork_lock.acquire();
+    next->fork_lock.acquire();
     {
         std::lock_guard<std::mutex> lk(g_PrintMtx); // critical section for uninterrupted print
         std::cout <<"Philosopher No: " << index << " is trying to take a forks from : "
@@ -156,13 +155,12 @@ void Philosophers::P::take()
 
 void Philosophers::P::release()
 {
-    prev->fork_lock.acquire();
-    next->fork_lock.acquire();
-    fork_lock.release();
     {
         std::lock_guard<std::mutex> lk(g_PrintMtx); // critical section for uninterrupted print
         std::cout <<"Philosopher No: " << index << " has stopped to eat..." << "\r\n";
     }
+    prev->fork_lock.release();
+    next->fork_lock.release();
 }
 
 void Philosophers::P::eat()

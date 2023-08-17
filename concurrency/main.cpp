@@ -1,9 +1,16 @@
 #include "philosophers.h"
-
-int main()
+#include <cstdlib>
+int main(int argc, char** argv)
 {
-    Philosophers p{10, 10};
-    p.start();
-//    p.debugfn();
+    int p,f;
+    if (argc != 3) {
+        p=5;
+        f=100;
+    } else{
+        p = atoi(argv[1]);
+        f = atoi(argv[2]);
+    }
+    Philosophers philosophers{p, f};
+    philosophers.start();
     return 0;
 }
