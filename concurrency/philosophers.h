@@ -5,6 +5,7 @@
 #include <atomic>
 #include <iostream>
 #include <semaphore>
+#include <vector>
 
 class Philosophers
 {
@@ -38,7 +39,7 @@ class Philosophers
         void eat();
     };
 
-    std::thread* m_workers[5];
+    std::vector<std::thread*> m_workers;
 
     P* m_head;
 
@@ -62,8 +63,6 @@ public:
     ~Philosophers() ;
 
     void start();
-
-    void testinit();
 
     void debugfn();
 

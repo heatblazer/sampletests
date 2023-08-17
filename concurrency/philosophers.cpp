@@ -74,13 +74,13 @@ void Philosophers::_start(P *p)
 }
 
 Philosophers::Philosophers(int count, int food):
-    m_workers{0},
     m_head{nullptr}, m_tail{nullptr},
     m_phiHeadCount{count}
 {
     for(int i=0; i < m_phiHeadCount; i++) {
         addPhilosopher(food, i+1);
     }
+    m_workers.reserve(count);
     makeCirc(true);
 }
 
@@ -105,7 +105,7 @@ void Philosophers::start()
 {
     P* it = m_head;
     for(int i=0; i < m_phiHeadCount; i++) {
-        m_workers[i] = new std::thread{&Philosophers::_start, it};
+        m_workers.push_back(new std::thread{&Philosophers::_start, it});
         it = it->next;
     }        
 
