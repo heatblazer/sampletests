@@ -32,7 +32,8 @@ void Philosophers::addPhilosopher(int food, int index)
 
 void Philosophers::makeCirc(bool ok)
 {
-    if (m_head && m_tail) {
+    if (m_head)
+    {
         if (ok) {
             m_head->prev = m_tail;
             m_tail->next = m_head;
@@ -91,6 +92,11 @@ Philosophers::~Philosophers()
         P* it = m_head;
         m_head = m_head->next;
         delete it;
+        it = nullptr;
+    }
+    for(int i=0; i < m_phiHeadCount; i++) {
+        delete m_workers[i];
+        m_workers[i] = nullptr;
     }
 }
 
