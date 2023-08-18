@@ -9,11 +9,11 @@ static std::mutex g_PrintMtx;
 
 namespace
 {
-size_t my_rand(size_t min, size_t max)
-{
-    static std::mt19937 rnd(std::time(nullptr));
-    return std::uniform_int_distribution<>(min, max)(rnd);
-}
+    size_t my_rand(size_t min, size_t max)
+    {
+        static std::mt19937 rnd(std::time(nullptr));
+        return std::uniform_int_distribution<>(min, max)(rnd);
+    }
 }
 
 void Philosophers::addPhilosopher(int food, int index)
@@ -32,8 +32,7 @@ void Philosophers::addPhilosopher(int food, int index)
 
 void Philosophers::makeCirc(bool ok)
 {
-    if (m_head)
-    {
+    if (m_head) {
         if (ok) {
             m_head->prev = m_tail;
             m_tail->next = m_head;
@@ -59,11 +58,6 @@ bool Philosophers::allDone()
 //proxy fn to main class
 void Philosophers::_start(P *p)
 {
-    //while there is a food in the plate
-        //think
-        //take the forks
-        // eat
-        // release the forks
     while (!p->p_Root->allDone())
     {
         p->think();
@@ -108,13 +102,10 @@ void Philosophers::start()
         m_workers.push_back(new std::thread{&Philosophers::_start, it});
         it = it->next;
     }        
-
     for(int i=0; i < m_phiHeadCount; i++) {
         m_workers[i]->join();
     }
-
     std::cout << "All finished eating..." << std::endl;
-    return;
 }
 
 
@@ -172,4 +163,3 @@ void Philosophers::P::eat()
                    << "\r\n";
     }
 }
-
